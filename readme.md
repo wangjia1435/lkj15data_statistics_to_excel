@@ -1,5 +1,5 @@
 ##  目的
-1. 自动统计从http://222.240.61.122:8088/lmd-web/app/index.html下载的当日 固定机车的LKJ数据，进行分析统计。
+1. 自动统计从http://222.240.61.122:8088/lmd-web/app/index.html 下载的当日 固定机车的LKJ数据，进行分析统计。
 2. 下载对应记录后通过dmcl2012.exe软件解析成excel数据。
 
 ## 配置文件
@@ -20,35 +20,33 @@ config.xml:
 
 计长：<事件：计长> <其他： >
 
-## 软件流程
-1. 解析xml，保存excel第1列所用数据，使用字典形式存储
-。变量名`g_InFirstRowDict{"ColName":"Content"}`
-其中ColName的规则为 `[A-Z][A-Z][n]`,所以程序设计最多28\*28列;
-
-- 输入为input文件夹下的excel.每次新加的excel存放其中.已经解析过的文件不再解析.解析过的在
-ouput文件夹下的excel中会有记录.
-- 如果输出excel中已经有第一列，那么同`g_InFirstRowDict`比较.采用`g_InFirstRowDict`为准
+## 软件
+**class类 excel_parse**
+1. `AddExcelRow(self, RowList=[], Dir=u"上行")` 创建excel表格，并给最后一列添加内容
 
 
-2. 解析输入excel.更新输出新的一行excel内容.变量名为`g_OutLastRowDict{"ColName":"Contend"}`其中ColName的规则为 `[A-Z][A-Z][n]`。
+**class类 xml_config_parse**
 
-3. 解析Input文件夹excel判断该文件是否符合解析
+1. `get_first_row_list(self,dir=u"上行")`解析xml格式获取第一行标题，上行与下行有区别
+2. `get_coordinate(self,CoordinateX=1)`循环从CoordinateX行获取坐标，每调用一次列坐标加1
+3. `get_station_list(self)`获取xml配置中的所有站台
+4. `get_row_format(self,list=[],CoordinateX=1)`将坐标与列表元素组合成存储字典的列表.key为坐标，value为list元素值.
 
-4. 变量名`g_InFirstRowDict{"ColName":"Content"}`的`ColName`设计规则,根据规则去解析Input下有效excel,
-获得`content`.根据输出excel文件获得写入的`content`二维坐标.
+**class类 excel_rule**
+该类主要定义每个输出标题内容的生成规则
+1. `ElRu_GetKey(self,firstRow=0,lastRow=0, col=0, key=u"",outCol=0, frontToRear=True, fullPattern=True)`寻找关键内容的规则函数.
+    - *firstRow*(从excel表的第firstRow行开始找)
+    - *lastRow*（找到lastRow行结束）
+    - *col*（找的是col列）
+    - *key* 上述范围搜寻的关键字
+    - *outCol*如果找到了，则输出该行的第outCol列内容，没找到输出not found
+    - *frontToRear*是否从前往后找，或者从后往前找
+    - *fullPattern*部分匹配还是全词匹配  
 
-5. 设计规则
--  列名 “关键字” 
-- 行初始 2
-- 行结束 last
-- 寻找关键字 "绿灯"
+2. `ElRu_GetRowNum(self,firstRow=0,lastRow=0, col=0, key=u"",outCol=0, frontToRear=True, fullPattern=True)`获取关键字所在的行数，参数含义同上个函数
+3. `ElRu_GetMaxRowNum(self)`获取excel表最大行数
+4. `ElRu_GetRowList(self)`根据规则函数生成的关键字组成列表
 
-6. 变量解释
-- `g_stationList`存放上行方向顺序的所有站名,如果开车方向为下行,那么`g_stationList`=`g_stationList.reverse()`
-- `g_stationDicList`存放输入excel解析的所有站名对应的行号
-- 侧线股道号、进站停车距、机外停车这个三个数值需要通过`g_stationDicList`找到行号
-
-7. 将变量`g_OutLastRowDict{"ColName":"Content"}`更新到output文件夹excel的最新一行.
 
 ## visual stdio下调试python代码
 1. 利用shift+alt+f5直接在python交互中执行项目.这样结果很快出来.

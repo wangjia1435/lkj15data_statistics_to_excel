@@ -33,7 +33,7 @@ class excel_parse():
         _inExcelName=self.GetIterFileName()
         
     # 根据上下行来决定将 List添加到哪个sheet
-    # FirstRowList改成通用得List   
+    # 如果excel不存在那么创建
     def AddExcelRow(self, RowList=[], Dir=u"上行"):
         
         if Dir==u"上行":
@@ -76,11 +76,7 @@ class excel_parse():
                 return None
         pass
     
-    def GetDatetime(self):
-        pass
-    
-    def CreatExcelNextRow(self):
-        pass
+
 xmlObj=xml_config_parse()
 g_InFirstRowDict=xmlObj.get_row_format(xmlObj.get_first_row_list())
 print(g_InFirstRowDict)

@@ -181,8 +181,10 @@ class excel_rule():
         '''
                         第一站是没有侧线概念的,所以肯定是从第二站开始
         '''
-        if i==0:
-            return u"正线通过"
+        if i==0 and self.s_stationWithRowDicList[0]==None:
+            return u"本次未通过该站"
+        elif i==0:
+            return u"正线进站"
         value=0
         nextValue=0
         _dic=self.s_stationWithRowDicList[i-1]
@@ -262,8 +264,8 @@ class excel_rule():
             return str1
         pass
 
-    # 返回车站 机外停车股道号
-    def ElRu_GetOutStationStopTrackNum(self,i=0):
+    # 返回车站 机外停车距离
+    def ElRu_GetOutStationStopDistance(self,i=0):
         '''
                         第一站是没有机外停车概念的,所以肯定是从第二站开始
         '''
@@ -324,7 +326,7 @@ class excel_rule():
             # 进站停车距离 --> 搜寻 两站之间的 “停车”
             list.append(self.ElRu_GetStationStopDistance(i))
             # 机外停车距离
-            list.append(self.ElRu_GetOutStationStopTrackNum(i))
+            list.append(self.ElRu_GetOutStationStopDistance(i))
         return list
     
 if __name__ == '__main__':           
@@ -362,7 +364,7 @@ if __name__ == '__main__':
     for i in range(0,len(g_stationDicList)):
         print(rule.ElRu_GetStationSideTrackNum(i))
         print(rule.ElRu_GetStationStopDistance(i))
-        print(rule.ElRu_GetOutStationStopTrackNum(i))
+        print(rule.ElRu_GetOutStationStopDistance(i))
     
     
     # 进站停车距离 -->  两站间搜寻 "停车",第一个为有效值
