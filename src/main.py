@@ -11,9 +11,9 @@
 #----------------------------------------------------------------------------
 
 import openpyxl
-from xml_config_parse import xml_config_parse
-from excel_parse import excel_parse
-from rule_retrieve import  excel_rule
+from src import xml_config_parse
+from src import excel_parse
+from src.rule_retrieve import  excel_rule
 
 xmlObj=xml_config_parse()
 

@@ -9,7 +9,7 @@
 # LastChange:   create 2019-05-14
 # History:      
 #----------------------------------------------------------------------------
-from xml_config_parse import xml_config_parse
+from src import xml_config_parse
 
 '''
 建立一个类，根据关键字-规则，得到内容
@@ -77,7 +77,7 @@ class excel_parse():
         pass
     
 
-xmlObj=xml_config_parse()
+xmlObj=xml_config_parse.xml_config_parse()
 g_InFirstRowDict=xmlObj.get_row_format(xmlObj.get_first_row_list())
 print(g_InFirstRowDict)
 g_excelObj=excel_parse("../input","outputFileName.xlsx")

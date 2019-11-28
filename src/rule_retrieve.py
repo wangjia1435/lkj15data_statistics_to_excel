@@ -19,7 +19,7 @@
 MAX=65536
 
 import openpyxl
-from xml_config_parse import xml_config_parse
+from src import xml_config_parse
 import os
 import re
 
