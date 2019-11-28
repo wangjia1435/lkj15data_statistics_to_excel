@@ -5,11 +5,11 @@
 ## 配置文件
 config.xml:
 
-<img src=".\src\picture\1574904572(1).png" style="zoom:75%;" />
+![1574904572(1)](https://github.com/wangjia1435/lkj15data_statistics_to_excel/blob/master/src/picture/1574904572(1).png)
 
 ## 生成表格
 
-![1574905642(1)](.\src\picture\1574905642(1).png)
+![1574905642(1)](https://github.com/wangjia1435/lkj15data_statistics_to_excel/blob/master/src/picture/1574905642(1).png)
 
 ## 软件
 **class类 excel_parse**
